@@ -1,6 +1,6 @@
 # OASIS_START
-# DO NOT EDIT (digest: c35b95fa5084690f06661f2505841e39)
-version = "108.00.01"
+# DO NOT EDIT (digest: 16d463fe3a11a2224393116f056a8f0d)
+version = "108.00.02"
 description = "OCaml variants as first class values."
 archive(byte) = "variantslib.cma"
 archive(byte, plugin) = "variantslib.cma"
@@ -8,7 +8,7 @@ archive(native) = "variantslib.cmxa"
 archive(native, plugin) = "variantslib.cmxs"
 exists_if = "variantslib.cma"
 package "syntax" (
- version = "108.00.01"
+ version = "108.00.02"
  description = "Syntax extension for Variantslib"
  requires = "camlp4 type_conv variantslib"
  archive(syntax, preprocessor) = "pa_variants_conv.cma"

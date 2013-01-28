@@ -14,8 +14,6 @@ module List = struct
   ;;
 end
 
-
-open Printf
 open Camlp4.PreCast
 open Pa_type_conv
 
@@ -90,9 +88,6 @@ module Inspect = struct
     | _ -> assert false
 
   let variants ty _loc body_ty = List.map (Ast.list_of_ctyp ty []) ~f:(variant _loc body_ty)
-
-  let variant_names ty _loc body_ty = List.map (variants ty _loc body_ty)
-    ~f:(fun v -> v.Variant_definition.name)
 end
 
 let raise_unsupported () =
