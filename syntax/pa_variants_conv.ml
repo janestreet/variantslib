@@ -1,3 +1,9 @@
+(* Generated code should depend on the environment in scope as little as
+   possible.  E.g. rather than [foo = []] do [match foo with [] ->], to eliminate the
+   use of [=].  It is especially important to not use polymorphic comparisons, since we
+   are moving more and more to code that doesn't have them in scope. *)
+
+
 (*pp camlp4orf *)
 
 module List = struct
@@ -40,8 +46,8 @@ module Variant_definition = struct
   let to_constructor_type t _loc =
     match t.kind with
     | `Normal | `Polymorphic -> Some (
-        Create.lambda_sig _loc t.arg_tys t.body_ty
-      )
+      Create.lambda_sig _loc t.arg_tys t.body_ty
+    )
     | `Type -> None
 end
 
@@ -50,41 +56,41 @@ module Inspect = struct
     let module V = Variant_definition in
     match ty with
     | <:ctyp< $uid:name$ >> -> {
-        V.name = name;
-        arg_tys = [];
-        body_ty = body_ty;
-        kind = `Normal;
-      }
+      V.name = name;
+      arg_tys = [];
+      body_ty = body_ty;
+      kind = `Normal;
+    }
     | <:ctyp< $uid:name$ of $tps$ >> -> {
-        V.name = name;
-        arg_tys = Ast.list_of_ctyp tps [];
-        kind = `Normal;
-        body_ty = body_ty;
-      }
+      V.name = name;
+      arg_tys = Ast.list_of_ctyp tps [];
+      kind = `Normal;
+      body_ty = body_ty;
+    }
     | <:ctyp< `$uid:name$ >> -> {
-        V.name = name;
-        arg_tys = [];
-        kind = `Polymorphic;
-        body_ty = body_ty;
-      }
+      V.name = name;
+      arg_tys = [];
+      kind = `Polymorphic;
+      body_ty = body_ty;
+    }
     | <:ctyp< `$uid:name$ of $tps$ >> -> {
-        V.name = name;
-        arg_tys = Ast.list_of_ctyp tps [];
-        kind = `Polymorphic;
-        body_ty = body_ty;
-      }
+      V.name = name;
+      arg_tys = Ast.list_of_ctyp tps [];
+      kind = `Polymorphic;
+      body_ty = body_ty;
+    }
     | <:ctyp< $lid:name$ >> -> {
-        V.name = name;
-        arg_tys = [];
-        kind = `Type;
-        body_ty = body_ty;
-      }
+      V.name = name;
+      arg_tys = [];
+      kind = `Type;
+      body_ty = body_ty;
+    }
     | <:ctyp< $lid:name$ $tps$ >> -> {
-        V.name = name;
-        arg_tys = Ast.list_of_ctyp tps [];
-        kind = `Type;
-        body_ty = body_ty;
-      }
+      V.name = name;
+      arg_tys = Ast.list_of_ctyp tps [];
+      kind = `Type;
+      body_ty = body_ty;
+    }
     | _ -> assert false
 
   let variants ty _loc body_ty = List.map (Ast.list_of_ctyp ty []) ~f:(variant _loc body_ty)
@@ -219,7 +225,10 @@ module Gen_sig = struct
       ~variants:(variant ~ty_name ~tps)
       rhs
 
-  let generate = function
+  let generate rec_ td =
+    if not rec_ then
+      failwith "nonrec is not compatible with the `variants' preprocessor";
+    match td with
     | Ast.TyDcl (_loc, ty_name, tps, rhs, _) -> variants_of_ty_sig _loc ~ty_name ~tps ~rhs
     | Ast.TyAnd (_loc, _, _) as tds    ->
         ignore (_loc, tds);
@@ -326,7 +335,7 @@ module Gen_struct = struct
       in
       loop
     in
-    <:str_item< value descriptions = $exList _loc variant_names$>>
+    <:str_item< value descriptions = $exList _loc variant_names$ >>
   ;;
 
   let v_map_fun _loc ty body_ty =
@@ -434,7 +443,10 @@ module Gen_struct = struct
       ~record:unsupported
       rhs
 
-  let generate = function
+  let generate rec_ td =
+    if not rec_ then
+      failwith "nonrec is not compatible with the `variants' preprocessor";
+    match td with
     | Ast.TyDcl (_loc, name, tps, rhs, _) -> variants_of_ty _loc ~variant_name:name ~tps ~rhs
     | Ast.TyAnd (_loc, _, _) as tds ->
         ignore (_loc, tds);
