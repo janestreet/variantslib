@@ -91,7 +91,9 @@ module Inspect = struct
       kind = `Type;
       body_ty = body_ty;
     }
-    | _ -> assert false
+    | <:ctyp< $_$ : $_$ >> -> Gen.error ty ~fn:"variant"
+      ~msg:"GADTs are not supported by variantslib"
+    | _ -> Gen.unknown_type ty "variant"
 
   let variants ty _loc body_ty = List.map (Ast.list_of_ctyp ty []) ~f:(variant _loc body_ty)
 end
