@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 7266b531dc0248607b813789f56c946b) *)
+(* DO NOT EDIT (digest: 7648e5e9fed58dfffe0bc4408d0e9c4b) *)
 This is the INSTALL file for the variantslib distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
@@ -24,7 +24,7 @@ Installing
 Uninstalling
 ============
 
-1. Go to the root of the package 
+1. Go to the root of the package
 2. Run 'ocaml setup.ml -uninstall'
 
 OASIS
