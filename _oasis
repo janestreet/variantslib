@@ -33,10 +33,3 @@ Library pa_variants_conv
   XMETAType:          syntax
   XMETARequires:      camlp4,type_conv,variantslib
   XMETADescription:   Syntax extension for Variantslib
-
-Document "variantslib"
-  Title:                API reference for variantslib
-  Type:                 ocamlbuild (0.3)
-  BuildTools+:          ocamldoc
-  XOCamlbuildPath:      lib
-  XOCamlbuildLibraries: variantslib
