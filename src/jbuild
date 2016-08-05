@@ -1,0 +1,5 @@
+(library
+ ((name variantslib)
+  (public_name variantslib)
+  (preprocess (((pps ()) All)))
+  (js_of_ocaml ())))
