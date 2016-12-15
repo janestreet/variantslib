@@ -1,8 +1,0 @@
-version = "$(pkg_version)"
-description = "Part of Jane Street's Core library"
-requires = "base"
-archive(byte  ) = "variantslib.cma"
-archive(native) = "variantslib.cmxa"
-plugin(byte  ) = "variantslib.cma"
-plugin(native) = "variantslib.cmxs"
-exists_if = "variantslib.cma"
