@@ -2,7 +2,6 @@
  ((name variantslib)
   (public_name variantslib)
   (libraries (base))
-  (flags (:standard -safe-string))
   (preprocess (pps ( ppxlib.runner)))
 ))
 
