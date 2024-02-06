@@ -1,2 +1,5 @@
-(library (name variantslib) (public_name variantslib) (libraries base)
+(library
+ (name variantslib)
+ (public_name variantslib)
+ (libraries base)
  (preprocess no_preprocessing))
